@@ -1,5 +1,7 @@
 # Uyghur Village
 
+![Uyghur Village first page: a 3D miniature Uyghur village at night in the rain, with Time, Weather, Season and Camera controls](docs/screenshot.png)
+
 An interactive miniature Uyghur village rendered as a cinematic 3D diorama. Explore a rain-soaked neighborhood with Uyghur architectural details, warm shop interiors, changing weather, seasons, and several camera modes.
 
 ## Features
@@ -26,7 +28,3 @@ Open `dist/index.html` in a modern browser. The built file contains the JavaScri
 - `shell.html` — page layout and floating environment controls
 - `build.mjs` — bundles everything into one file
 - `dist/index.html` — ready-to-open standalone build
-
-## Live version
-
-[Rain on a Uyghur Corner](https://uyghur-rain-diorama.warisruzi.chatgpt.site/)
