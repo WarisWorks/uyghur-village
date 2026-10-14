@@ -1,0 +1,10 @@
+import {build} from 'esbuild';
+import {readFileSync, writeFileSync, mkdirSync} from 'node:fs';
+const result = await build({entryPoints:['scene.js'],bundle:true,minify:true,write:false,format:'iife',target:['es2020'],legalComments:'inline'});
+const js = result.outputFiles[0].text.replaceAll('</script','<\\/script');
+let html = readFileSync('shell.html','utf8').replace('/* BUNDLED_SCENE */',()=>js);
+const font=readFileSync('uyghur-font.woff').toString('base64');
+html=html.replace('UYGHUR_FONT_BASE64',font);
+mkdirSync('dist',{recursive:true});
+writeFileSync('dist/index.html',html);
+console.log(`Self-contained HTML: ${Buffer.byteLength(html)} bytes`);

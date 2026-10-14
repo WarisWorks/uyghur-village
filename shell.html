@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#07151f">
+<meta name="description" content="Explore a rainy miniature Uyghur village of courtyard homes, carved timber arches, turquoise tilework, orchards, irrigation lanes and a warmly lit grocery shop.">
+<title>Rain over a Uyghur Village</title>
+<style>
+@font-face{font-family:Uyghur;src:url(data:font/woff;base64,UYGHUR_FONT_BASE64) format('woff');font-display:block}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07151f}
+body{background:radial-gradient(ellipse at 50% 46%,#1a303c 0%,#0a1923 60%,#050d15 100%);transition:background 900ms ease}
+body[data-time="day"][data-weather="clear"]{background:radial-gradient(ellipse at 48% 33%,#d7e6df 0%,#8cb9c5 47%,#5f8392 100%)}
+body[data-time="day"][data-weather="rain"]{background:radial-gradient(ellipse at 48% 35%,#a9bec1 0%,#617e88 52%,#3b5663 100%)}
+body[data-time="day"][data-weather="snow"]{background:radial-gradient(ellipse at 48% 35%,#e3e8e3 0%,#afc1c3 50%,#718994 100%)}
+body[data-time="day"][data-weather="fog"]{background:radial-gradient(ellipse at 50% 42%,#ced8d4 0%,#9eadae 58%,#71838b 100%)}
+body[data-time="night"][data-weather="clear"]{background:radial-gradient(ellipse at 50% 40%,#263e55 0%,#0c1d2b 58%,#050b13 100%)}
+body[data-time="night"][data-weather="rain"]{background:radial-gradient(ellipse at 50% 46%,#1a303c 0%,#0a1923 60%,#050d15 100%)}
+body[data-time="night"][data-weather="snow"]{background:radial-gradient(ellipse at 50% 42%,#344552 0%,#152430 58%,#09111a 100%)}
+body[data-time="night"][data-weather="fog"]{background:radial-gradient(ellipse at 50% 42%,#42515a 0%,#23333e 58%,#101b24 100%)}
+canvas{display:block;width:100%;height:100%;outline:none;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.environment-toolbar{position:fixed;z-index:10;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:7px;border:1px solid rgba(219,235,231,.22);border-radius:18px;background:linear-gradient(135deg,rgba(12,31,40,.76),rgba(27,48,53,.62));box-shadow:0 14px 42px rgba(2,10,16,.38),inset 0 1px 0 rgba(255,255,255,.12);backdrop-filter:blur(18px) saturate(135%);-webkit-backdrop-filter:blur(18px) saturate(135%);font-family:system-ui,-apple-system,sans-serif;color:#edf5ee;user-select:none;transition:background .5s ease,border-color .5s ease}
+body[data-time="day"] .environment-toolbar{background:linear-gradient(135deg,rgba(244,240,221,.78),rgba(199,216,207,.68));border-color:rgba(255,255,255,.55);color:#263c3d;box-shadow:0 14px 38px rgba(40,63,65,.22),inset 0 1px 0 rgba(255,255,255,.6)}
+.tool-field{position:relative;display:flex;align-items:center;gap:7px;height:44px;padding:0 11px;border-radius:13px;transition:background .2s ease}.tool-field:hover,.tool-field:focus-within{background:rgba(255,255,255,.09)}body[data-time="day"] .tool-field:hover,body[data-time="day"] .tool-field:focus-within{background:rgba(255,255,255,.36)}
+.tool-field+.tool-field:before{content:"";position:absolute;left:-3px;top:10px;width:1px;height:24px;background:rgba(227,240,234,.15)}body[data-time="day"] .tool-field+.tool-field:before{background:rgba(46,72,72,.13)}
+.tool-icon{width:19px;height:19px;display:grid;place-items:center;opacity:.88}.tool-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tool-copy{display:flex;flex-direction:column;gap:1px;min-width:66px}.tool-copy label{font-size:9px;line-height:1;text-transform:uppercase;letter-spacing:.13em;opacity:.55;font-weight:650}.tool-copy select{appearance:none;-webkit-appearance:none;width:100%;border:0;padding:0 17px 0 0;background:transparent;color:inherit;font:600 13px/1.25 system-ui,-apple-system,sans-serif;outline:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3' fill='none' stroke='%23dbe7e2' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 48%}.tool-copy select option{color:#15252c;background:#eef2ea}body[data-time="day"] .tool-copy select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3' fill='none' stroke='%23344d4d' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.camera-field .tool-copy{min-width:88px}
+@media(max-width:620px){.environment-toolbar{bottom:max(12px,env(safe-area-inset-bottom));width:calc(100% - 24px);justify-content:space-between;padding:5px}.tool-field{flex:1;padding:0 8px;gap:6px}.tool-copy,.camera-field .tool-copy{min-width:0}.tool-copy label{font-size:8px}.tool-copy select{font-size:12px}.tool-icon,.tool-icon svg{width:17px;height:17px}}
+@media(max-width:390px){.tool-icon{display:none}.tool-field{padding:0 7px}}
+@media(prefers-reduced-motion:reduce){body,.environment-toolbar{transition:none}}
+</style>
+</head>
+<body data-time="night" data-weather="rain" data-season="summer">
+<canvas id="world" tabindex="0" aria-label="Interactive miniature Uyghur village. Drag to explore manually, or choose Orbit, Drone, Village Walk, or Auto Tour from the camera toolbar."></canvas>
+<p class="sr-only">Rain falls across a miniature Uyghur village. Courtyard homes, orchard trees, irrigation water and a small neighborhood prayer house surround a warmly lit grocery shop. The turquoise shop sign reads دۇكان.</p>
+<div class="environment-toolbar" role="toolbar" aria-label="Village environment settings">
+  <div class="tool-field">
+    <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.7"/><path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg></span>
+    <span class="tool-copy"><label for="time-setting">Time</label><select id="time-setting" aria-label="Time of day"><option value="day">Day</option><option value="night" selected>Night</option></select></span>
+  </div>
+  <div class="tool-field">
+    <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 16.5h10.2a3.8 3.8 0 0 0 .3-7.6A5.7 5.7 0 0 0 6.3 7.7a4.4 4.4 0 0 0 .2 8.8Z"/><path d="m8 19-1 2M12.5 19l-1 2M17 19l-1 2"/></svg></span>
+    <span class="tool-copy"><label for="weather-setting">Weather</label><select id="weather-setting" aria-label="Weather"><option value="clear">Clear</option><option value="rain" selected>Rain</option><option value="snow">Snow</option><option value="fog">Fog</option></select></span>
+  </div>
+  <div class="tool-field">
+    <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21V9M12 14c-3.8 0-6-2.1-6-6 3.8 0 6 2.1 6 6ZM12 11c3.8 0 6-2.1 6-6-3.8 0-6 2.1-6 6Z"/></svg></span>
+    <span class="tool-copy"><label for="season-setting">Season</label><select id="season-setting" aria-label="Season"><option value="spring">Spring</option><option value="summer" selected>Summer</option><option value="autumn">Autumn</option><option value="winter">Winter</option></select></span>
+  </div>
+  <div class="tool-field camera-field">
+    <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8.5h11.5A2.5 2.5 0 0 1 18 11v5.5H6.5A2.5 2.5 0 0 1 4 14V8.5Z"/><path d="m18 12 3-2v5l-3-2M8 8.5l1.3-2h3.4l1.3 2"/><circle cx="11" cy="12.5" r="2.2"/></svg></span>
+    <span class="tool-copy"><label for="camera-setting">Camera</label><select id="camera-setting" aria-label="Camera movement"><option value="free" selected>Explore</option><option value="orbit">360° Orbit</option><option value="drone">Drone</option><option value="walk">Village Walk</option><option value="tour">Auto Tour</option></select></span>
+  </div>
+</div>
+<script>/* BUNDLED_SCENE */</script>
+</body>
+</html>
